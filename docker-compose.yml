@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:14.1
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=app
+    ports:
+      - "5432:5432"
+    networks:
+      - network
+
+  web:
+    build: .
+    image: flask-app
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    networks:
+      - network
+    depends_on:
+      - db
+
+  migrate:
+    image: migrate
+    command: python manage.py migrate
+    volumes:
+      - .:/code
+    networks:
+      - network
+    depends_on:
+      - db
+
+networks:
+    network:

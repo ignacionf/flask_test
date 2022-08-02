@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="card bg-error">
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
+<h3 class="title">Sign Up</h3>
+<form class="card row" method="POST" action="{{ url_for('auth.signup') }}">
+    <input class="col-8" type="email" name="email" placeholder="Email" autofocus="">
+    <input class="col-8" type="text" name="name" placeholder="Name" autofocus="">
+    <input class="col-8" type="password" name="password" placeholder="Password">
+    <footer>
+        <button class="button is-block is-info is-large is-fullwidth">Sign Up</button>
+    </footer>
+</form>
+{% endblock %}
