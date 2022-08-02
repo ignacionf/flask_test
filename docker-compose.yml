@@ -20,17 +20,7 @@ services:
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
-    networks:
-      - network
-    depends_on:
-      - db
-
-  migrate:
-    image: migrate
-    command: python manage.py migrate
-    volumes:
-      - .:/code
+      - "5000:5000"
     networks:
       - network
     depends_on:

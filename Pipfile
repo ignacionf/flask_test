@@ -11,6 +11,7 @@ flask-migrate = "*"
 flask-script = "*"
 flask-cors = "*"
 flask-login = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

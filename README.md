@@ -1,7 +1,24 @@
 # flask_test
-## Init db
+## requirements
+
+Docker, docker-compose, pipenv
+
+## Initial
 
 ```
-from crud import db, create_app, models
-db.create_all(app=create_app())
+$ pipenv install
+$ pipenv shell
+$ python
+>>> from crud import db, create_app, models
+>>> db.create_all(app=create_app())
+
+# Run
+$ pipenv run flask run
+```
+## Start
+
+```
+$ docker-compose build web
+$ docker-compose up -d db
+$ docker-compose up db
 ```
