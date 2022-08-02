@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card bg-error is-hidden">Complete all data</div>
+<h3 class="title">User <strong>{{ edit_user.name }}</strong></h3>
+<form class="card row">
+    <input class="col-8" type="email" name="email" placeholder="Email" required value="{{ edit_user.email }}">
+    <input class="col-8" type="text" name="name" placeholder="Name" required value="{{ edit_user.name }}">
+    <input class="col-8" type="password" name="password" placeholder="New Password">
+    <footer>
+        <button type="submit">Save</button>
+    </footer>
+</form>
+{% endblock %}
+
+{% block script %}
+<script>
+    $( "form" ).submit(function( event ) {
+        event.preventDefault();
+        $.ajax(
+            {
+                url: "{{ url_for('auth.account_change', user_id=edit_user.id) }}",
+                data: $(this).serialize(),
+                type: "PUT",
+                success: function(data){}
+            })
+    });
+</script>
+{% endblock %}

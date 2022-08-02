@@ -1,16 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<div class="card bg-error">{{ messages[0] }}</div> 
-{% endif %}                                                                                 
-{% endwith %}
-<form class="card row" action="{{ url_for('auth.login') }}" method=POST>
+<div class="card bg-error is-hidden">User/Pass invalid</div> 
+<form class="card row" action="" method=POST>
       <input type="email" name="email" class="col-8" placeholder="username/email">
       <input class="col-8" placeholder="password" type="password" name='password'>
       <footer class="is-right">
         <button type="submit">Sign in</button>
       </footer>
 </form>
+{% endblock %}
+
+{% block script %}
+<script>
+    $( "form" ).submit(function( event ) {
+        event.preventDefault();
+        $.post("{{ url_for('auth.login_post') }}",
+            $(this).serialize(),
+            function( data ) {
+                window.location = "{{ url_for("main.index") }}";
+            }).fail(function(){
+                $(".bg-error").removeClass("is-hidden")
+            });
+    });
+</script>
 {% endblock %}
